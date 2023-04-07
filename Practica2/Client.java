@@ -15,9 +15,18 @@ public class Client {
             BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
             try {
-                /* Reads the name (nick) */
-                nick = input.readLine();
-                /* Sends it to the server throught the socket */
+                /* Reads the name (nick) and checks its not empty */
+                System.out.print("[ CLIENT ]: Introduce your nick: ");
+                nick = input.readLine().trim();
+
+                /*
+                 * Prompts user to enter a non-empty nickname if they entered nothing or only
+                 * whitespace characters
+                 */
+                while (nick.isEmpty()) {
+                    System.out.print("[ CLIENT ]: Invalid nickname. Please enter a non-empty nickname: ");
+                    nick = input.readLine().trim();
+                }
                 clientSocket.printLine(nick);
 
                 /* Reads the text message */
