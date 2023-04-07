@@ -3,10 +3,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class MyServerSocket {
-    
+
     private ServerSocket serverSocket;
 
-    public MyServerSocket(int port){
+    public MyServerSocket(int port) {
         try {
             this.serverSocket = new ServerSocket(port);
         } catch (IOException e) {
@@ -17,7 +17,7 @@ public class MyServerSocket {
 
     /* Needs to return a MySocket */
     /* Create a new MySocket passing a Socket */
-    public MySocket accept(){
+    public MySocket accept() {
         try {
             return new MySocket(this.serverSocket.accept());
         } catch (Exception e) {
@@ -27,7 +27,7 @@ public class MyServerSocket {
         return null;
     }
 
-    public void close(){
+    public void close() {
         try {
             this.serverSocket.close();
         } catch (IOException e) {
