@@ -9,6 +9,7 @@ public class Server {
         System.out.println("Server listening");
         while (true) {
             /* Messages only for the client that connects now */
+            /* Accept method blocks until a client connects */
             MySocket clientSocket = serverSocket.accept();
             clientSocket.printLine("[ SERVER ]: Introduce your nick: ");
             String clientNick = clientSocket.readLine();
