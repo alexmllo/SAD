@@ -1,4 +1,7 @@
 import java.util.concurrent.ConcurrentHashMap;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Server {
     private static final ConcurrentHashMap<String, MySocket> clientsMap = new ConcurrentHashMap<>();
@@ -17,12 +20,18 @@ public class Server {
                 clientNick = clientSocket.readLine();
             }
             clientSocket.printLine("*** You joined the chat ***");
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+            DateFormat hourFormat = new SimpleDateFormat("HH:mm");
+            String date = dateFormat.format(new Date());
+            String hour = hourFormat.format(new Date());
+            clientSocket.printLine("Connected at " + date);
             /* Message only for the server */
-            System.out.println("[" + clientNick + "] joined the chat");
+            System.out.println(hour + " [" + clientNick + "] joined the chat");
+
             /* Message for all the clients */
             for (ConcurrentHashMap.Entry<String, MySocket> entry : clientsMap.entrySet()) {
                 if (!entry.getKey().equals(clientNick)) {
-                    entry.getValue().printLine("[ SERVER ]: " + clientNick + " joined the chat");
+                    entry.getValue().printLine(hour + " [ SERVER ]: " + clientNick + " joined the chat");
                 }
             }
             final String finalNick = clientNick;
@@ -33,18 +42,18 @@ public class Server {
                 while ((line = clientSocket.readLine()) != null) {
                     for (ConcurrentHashMap.Entry<String, MySocket> entry : clientsMap.entrySet()) {
                         if (!entry.getKey().equals(finalNick)) {
-                            entry.getValue().printLine("[ " + finalNick + " ]: " + line);
+                            entry.getValue().printLine(hour + " [ " + finalNick + " ]: " + line);
                         }
                     }
                 }
                 clientSocket.close();
                 clientsMap.remove(finalNick);
                 /* Message for the server */
-                System.out.println("[" + finalNick + "] has left.");
+                System.out.println(hour + " [" + finalNick + "] has left.");
                 /* Message for the clients */
                 for (ConcurrentHashMap.Entry<String, MySocket> entry : clientsMap.entrySet()) {
                     if (!entry.getKey().equals(finalNick)) {
-                        entry.getValue().printLine("[ SERVER ]: " + finalNick + " has left");
+                        entry.getValue().printLine(hour + " [ SERVER ]: " + finalNick + " has left");
                     }
                 }
             }).start();
