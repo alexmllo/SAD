@@ -2,7 +2,7 @@ const socket = io('http://localhost:3000')
 
 const nameModal = document.getElementById('name-window')
 const nameInput = document.getElementById('name-input')
-const roomInput =document.getElementById('room-input')
+const roomInput = document.getElementById('room-input')
 const submitButton = document.getElementById('join-button')
 
 const messageContainer = document.getElementById('message-container')
@@ -57,7 +57,7 @@ function appendMessage(message, color) {
     const messageElement = document.createElement('div')
     /* Le asignamos el mensage recivido como HTML interno */
     /* <span> Hace de <p> pero sin margenes al acabar la linea */    
-    messageElement.innerHTML = '<span>'+ message + '</span>'
+    messageElement.innerHTML = '<span>' + message + '</span>'
     /* Agragamos el elemento al contenedor de mensages */
     messageElement.style.color = color
     messageContainer.append(messageElement)

@@ -6,6 +6,7 @@ const io = require("socket.io")(3000, {
     }
 })
 
+/* Users array */
 let users = []
 
 io.on('connection', (socket) => {
