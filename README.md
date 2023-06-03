@@ -14,4 +14,4 @@ Graphic chat using swing
 Real time chat app with Node.js, using Socket.io
 
 ## Exercises 
-Two exercices done in class
+Two exercises done in class
